@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2659" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -22,12 +22,12 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yeg-4V-1NU">
-                    <rect key="frame" x="94" y="298" width="186" height="71"/>
+                    <rect key="frame" x="93" y="298" width="188" height="71"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon message d'auth" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7o-ih-rmV">
-                            <rect key="frame" x="0.0" y="0.0" width="186" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon message d'auth" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7o-ih-rmV">
+                            <rect key="frame" x="0.0" y="0.0" width="188" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUq-ID-TuP">
@@ -38,16 +38,17 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHR-Tz-Gu8">
-                            <rect key="frame" x="104" y="41" width="62" height="30"/>
+                            <rect key="frame" x="104" y="41" width="64" height="30"/>
                             <state key="normal" title="Accepter"/>
                             <connections>
                                 <action selector="btnOkPressed:" destination="-1" eventType="touchUpInside" id="rSG-Nn-Dqk"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="BUq-ID-TuP" firstAttribute="leading" secondItem="yeg-4V-1NU" secondAttribute="leading" constant="20" id="10C-gS-AhX"/>
+                        <constraint firstItem="lHR-Tz-Gu8" firstAttribute="width" secondItem="BUq-ID-TuP" secondAttribute="width" id="3co-GV-HUa"/>
                         <constraint firstItem="R7o-ih-rmV" firstAttribute="top" secondItem="yeg-4V-1NU" secondAttribute="top" id="3tT-nV-9g0"/>
                         <constraint firstItem="lHR-Tz-Gu8" firstAttribute="leading" secondItem="BUq-ID-TuP" secondAttribute="trailing" constant="20" id="57T-xO-iPV"/>
                         <constraint firstAttribute="trailing" secondItem="lHR-Tz-Gu8" secondAttribute="trailing" constant="20" id="Gxh-Ik-eeS"/>
@@ -62,7 +63,7 @@
             </subviews>
             <color key="backgroundColor" red="0.41630196571350098" green="0.94765537977218628" blue="0.93308037519454956" alpha="0.51317349140000001" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="yeg-4V-1NU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ElD-DA-mgU" secondAttribute="leading" constant="20" id="Ju7-ha-rk3"/>
+                <constraint firstItem="yeg-4V-1NU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ElD-DA-mgU" secondAttribute="leading" constant="30" id="Ju7-ha-rk3"/>
                 <constraint firstItem="yeg-4V-1NU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ElD-DA-mgU" secondAttribute="top" constant="20" id="qss-Y0-nod"/>
                 <constraint firstItem="yeg-4V-1NU" firstAttribute="centerX" secondItem="ElD-DA-mgU" secondAttribute="centerX" id="rQe-lk-IPe"/>
                 <constraint firstItem="yeg-4V-1NU" firstAttribute="centerY" secondItem="ElD-DA-mgU" secondAttribute="centerY" id="raG-Dt-zLV"/>
