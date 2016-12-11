@@ -9,7 +9,7 @@
 import UIKit
 import Mapbox
 
-class ViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, AuthLocationManagerProtocol {
+class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManagerProtocol, UISearchBarDelegate {
     
     var authManager:AuthLocationManager!
     let point = MGLPointAnnotation()
@@ -23,13 +23,31 @@ class ViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDel
         authManager.delegate = self
         
         mapView.delegate = self
-        
         mapView.addAnnotation(point)
+        
+        // On ajoute la fausse searchBar
+        let searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        mapView.addSubview(searchBar)
+        
+        searchBar.leftAnchor.constraint(equalTo: mapView.leftAnchor, constant: 30).isActive = true
+        searchBar.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -30).isActive = true
+        searchBar.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 30).isActive = true
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        
+        let searchAdress = SearchViewController(sender:searchBar)
+        
+        let popUpManager = PopUpManager(presenting: self)
+        popUpManager.callPopUp(presented: searchAdress, transition: UIModalTransitionStyle.crossDissolve)
+        return false
     }
     
     func retUserLocation(location: CLLocation?) {
