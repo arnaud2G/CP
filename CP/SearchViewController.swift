@@ -30,6 +30,7 @@ class SearchViewController:UIViewController {
         
         self.userRegion = userRegion
         
+        // Ajout de la bar de recherche
         let sbLocation = UISearchBar()
         sbLocation.delegate = self
         sbLocation.translatesAutoresizingMaskIntoConstraints = false
@@ -42,6 +43,7 @@ class SearchViewController:UIViewController {
         sbLocation.showsCancelButton = true
         sbLocation.becomeFirstResponder()
         
+        // Ajout de la table d'affichage des résultats
         tvLocation.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tvLocation)
         
@@ -123,6 +125,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+
 class Location {
     
     let title:String?
@@ -157,25 +160,35 @@ class LocationCell: UITableViewCell {
         contentView.backgroundColor = .clear
         
         let vSep = UIView()
+        let vPuce = UIView()
         
         vSep.translatesAutoresizingMaskIntoConstraints = false
+        vPuce.translatesAutoresizingMaskIntoConstraints = false
         lblName.translatesAutoresizingMaskIntoConstraints = false
         lblAdress.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubview(vSep)
+        self.addSubview(vPuce)
         self.addSubview(lblName)
         self.addSubview(lblAdress)
         
         // ON AJOUTE LES CONTRAINTES
+        vPuce.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         lblName.topAnchor.constraint(equalTo: self.topAnchor, constant : 5).isActive = true
         lblAdress.topAnchor.constraint(equalTo: lblName.bottomAnchor).isActive = true
         lblAdress.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant : -5).isActive = true
         vSep.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         vSep.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        lblName.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        vPuce.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        vPuce.widthAnchor.constraint(equalToConstant: 5).isActive = true
+        vPuce.widthAnchor.constraint(equalTo: vPuce.heightAnchor).isActive = true
+        vPuce.layer.cornerRadius = 2.5
+        vPuce.backgroundColor = .darkGray
+        
+        lblName.leftAnchor.constraint(equalTo: vPuce.rightAnchor, constant: 10).isActive = true
         lblName.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        lblAdress.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        lblAdress.leftAnchor.constraint(equalTo: vPuce.rightAnchor, constant: 10).isActive = true
         lblAdress.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         vSep.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
         vSep.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true

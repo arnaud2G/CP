@@ -19,7 +19,6 @@
 		3488FCA81DFD649300B85E96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3488FCA61DFD649300B85E96 /* LaunchScreen.storyboard */; };
 		3488FCB01DFD65C100B85E96 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3488FCAF1DFD65C100B85E96 /* Mapbox.framework */; };
 		3488FCB11DFD65C100B85E96 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3488FCAF1DFD65C100B85E96 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A56A58A61DFD9DA500E9125D /* SearchLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A56A58A51DFD9DA500E9125D /* SearchLocationViewController.xib */; };
 		A56A58AD1DFDAB3100E9125D /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A58AC1DFDAB3100E9125D /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,8 +50,6 @@
 		3488FCA71DFD649300B85E96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3488FCA91DFD649300B85E96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3488FCAF1DFD65C100B85E96 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
-		A56A58A31DFD9CC800E9125D /* SearchLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
-		A56A58A51DFD9DA500E9125D /* SearchLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchLocationViewController.xib; sourceTree = "<group>"; };
 		A56A58AC1DFDAB3100E9125D /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,8 +101,6 @@
 				3488FC9D1DFD649300B85E96 /* AppDelegate.swift */,
 				3488FC9F1DFD649300B85E96 /* MapViewController.swift */,
 				A56A58AC1DFDAB3100E9125D /* SearchViewController.swift */,
-				A56A58A31DFD9CC800E9125D /* SearchLocationViewController.swift */,
-				A56A58A51DFD9DA500E9125D /* SearchLocationViewController.xib */,
 				3488FCA11DFD649300B85E96 /* Main.storyboard */,
 				3488FCA41DFD649300B85E96 /* Assets.xcassets */,
 				3488FCA61DFD649300B85E96 /* LaunchScreen.storyboard */,
@@ -177,7 +172,6 @@
 			files = (
 				34780F311DFD6B510015820F /* AuthViewController.xib in Resources */,
 				3488FCA81DFD649300B85E96 /* LaunchScreen.storyboard in Resources */,
-				A56A58A61DFD9DA500E9125D /* SearchLocationViewController.xib in Resources */,
 				3488FCA51DFD649300B85E96 /* Assets.xcassets in Resources */,
 				3488FCA31DFD649300B85E96 /* Main.storyboard in Resources */,
 			);
