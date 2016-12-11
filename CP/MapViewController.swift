@@ -23,6 +23,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        LocationStorage.sharedInstance.printAllData()
+        
         // Gest des popUp
         popUpManager = PopUpManager(presenting: self)
         
@@ -75,23 +77,29 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
                 var reverseGeo = String()
                 
                 // Location name
-                if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
+                if let locationName = placeMark.addressDictionary!["Name"] as? String {
                     reverseGeo = "\(reverseGeo) - \(locationName)"
                 }
                 
                 // City
-                if let city = placeMark.addressDictionary!["City"] as? NSString {
+                if let city = placeMark.addressDictionary!["City"] as? String {
                     reverseGeo = "\(reverseGeo) - \(city)"
                 }
                 
                 // Zip code
-                if let zip = placeMark.addressDictionary!["ZIP"] as? NSString {
+                if let zip = placeMark.addressDictionary!["ZIP"] as? String {
                     reverseGeo = "\(reverseGeo) - \(zip)"
                 }
                 
                 // Country
-                if let country = placeMark.addressDictionary!["Country"] as? NSString {
+                if let country = placeMark.addressDictionary!["Country"] as? String {
                     reverseGeo = "\(reverseGeo) - \(country)"
+                }
+                
+                do {
+                    try LocationStorage.sharedInstance.addLocation(location: Location(title: placeMark.addressDictionary!["Name"] as? String, adress: placeMark.addressDictionary!["City"] as? String, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+                } catch {
+                    // Gestion de l'err ici
                 }
                 
                 self.searchBar.text = reverseGeo
