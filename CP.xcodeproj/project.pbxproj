@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34780F2D1DFD68B30015820F /* PopUpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34780F2C1DFD68B30015820F /* PopUpManager.swift */; };
+		34780F2F1DFD690F0015820F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34780F2E1DFD690F0015820F /* AuthManager.swift */; };
+		34780F311DFD6B510015820F /* AuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34780F301DFD6B510015820F /* AuthViewController.xib */; };
+		34780F331DFD6B6D0015820F /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34780F321DFD6B6D0015820F /* AuthViewController.swift */; };
+		34780F361DFD75690015820F /* MyMGLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34780F351DFD75690015820F /* MyMGLMap.swift */; };
 		3488FC9E1DFD649300B85E96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3488FC9D1DFD649300B85E96 /* AppDelegate.swift */; };
 		3488FCA01DFD649300B85E96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3488FC9F1DFD649300B85E96 /* ViewController.swift */; };
 		3488FCA31DFD649300B85E96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3488FCA11DFD649300B85E96 /* Main.storyboard */; };
@@ -31,6 +36,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		34780F2C1DFD68B30015820F /* PopUpManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpManager.swift; sourceTree = "<group>"; };
+		34780F2E1DFD690F0015820F /* AuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		34780F301DFD6B510015820F /* AuthViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AuthViewController.xib; sourceTree = "<group>"; };
+		34780F321DFD6B6D0015820F /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		34780F351DFD75690015820F /* MyMGLMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMGLMap.swift; sourceTree = "<group>"; };
 		3488FC9A1DFD649300B85E96 /* CP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3488FC9D1DFD649300B85E96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3488FC9F1DFD649300B85E96 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,9 +63,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		34780F2B1DFD68430015820F /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				34780F2C1DFD68B30015820F /* PopUpManager.swift */,
+				34780F321DFD6B6D0015820F /* AuthViewController.swift */,
+				34780F301DFD6B510015820F /* AuthViewController.xib */,
+				34780F2E1DFD690F0015820F /* AuthManager.swift */,
+			);
+			name = Tool;
+			sourceTree = "<group>";
+		};
+		34780F341DFD75560015820F /* MyClass */ = {
+			isa = PBXGroup;
+			children = (
+				34780F351DFD75690015820F /* MyMGLMap.swift */,
+			);
+			name = MyClass;
+			sourceTree = "<group>";
+		};
 		3488FC911DFD649300B85E96 = {
 			isa = PBXGroup;
 			children = (
+				34780F341DFD75560015820F /* MyClass */,
+				34780F2B1DFD68430015820F /* Tool */,
 				3488FCAF1DFD65C100B85E96 /* Mapbox.framework */,
 				3488FC9C1DFD649300B85E96 /* CP */,
 				3488FC9B1DFD649300B85E96 /* Products */,
@@ -143,6 +174,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34780F311DFD6B510015820F /* AuthViewController.xib in Resources */,
 				3488FCA81DFD649300B85E96 /* LaunchScreen.storyboard in Resources */,
 				3488FCA51DFD649300B85E96 /* Assets.xcassets in Resources */,
 				3488FCA31DFD649300B85E96 /* Main.storyboard in Resources */,
@@ -156,6 +188,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34780F2D1DFD68B30015820F /* PopUpManager.swift in Sources */,
+				34780F361DFD75690015820F /* MyMGLMap.swift in Sources */,
+				34780F2F1DFD690F0015820F /* AuthManager.swift in Sources */,
+				34780F331DFD6B6D0015820F /* AuthViewController.swift in Sources */,
 				3488FCA01DFD649300B85E96 /* ViewController.swift in Sources */,
 				3488FC9E1DFD649300B85E96 /* AppDelegate.swift in Sources */,
 			);
@@ -327,6 +363,7 @@
 				3488FCAE1DFD649300B85E96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
