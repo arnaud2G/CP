@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2659" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AuthViewController" customModule="CP" customModuleProvider="target">
+            <connections>
+                <outlet property="btnNook" destination="BUq-ID-TuP" id="2j9-3P-wWT"/>
+                <outlet property="btnOk" destination="lHR-Tz-Gu8" id="XOn-uh-tT9"/>
+                <outlet property="lblAuth" destination="R7o-ih-rmV" id="kRc-Yv-U7h"/>
+                <outlet property="view" destination="ElD-DA-mgU" id="Z1r-yB-lCc"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="ElD-DA-mgU">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yeg-4V-1NU">
+                    <rect key="frame" x="94" y="298" width="186" height="71"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon message d'auth" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7o-ih-rmV">
+                            <rect key="frame" x="0.0" y="0.0" width="186" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUq-ID-TuP">
+                            <rect key="frame" x="20" y="41" width="64" height="30"/>
+                            <state key="normal" title="Plus Tard"/>
+                            <connections>
+                                <action selector="btnNookPressed:" destination="-1" eventType="touchUpInside" id="kdr-eW-Hs2"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHR-Tz-Gu8">
+                            <rect key="frame" x="104" y="41" width="62" height="30"/>
+                            <state key="normal" title="Accepter"/>
+                            <connections>
+                                <action selector="btnOkPressed:" destination="-1" eventType="touchUpInside" id="rSG-Nn-Dqk"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="BUq-ID-TuP" firstAttribute="leading" secondItem="yeg-4V-1NU" secondAttribute="leading" constant="20" id="10C-gS-AhX"/>
+                        <constraint firstItem="R7o-ih-rmV" firstAttribute="top" secondItem="yeg-4V-1NU" secondAttribute="top" id="3tT-nV-9g0"/>
+                        <constraint firstItem="lHR-Tz-Gu8" firstAttribute="leading" secondItem="BUq-ID-TuP" secondAttribute="trailing" constant="20" id="57T-xO-iPV"/>
+                        <constraint firstAttribute="trailing" secondItem="lHR-Tz-Gu8" secondAttribute="trailing" constant="20" id="Gxh-Ik-eeS"/>
+                        <constraint firstAttribute="bottom" secondItem="lHR-Tz-Gu8" secondAttribute="bottom" id="Hjc-2w-pCO"/>
+                        <constraint firstItem="R7o-ih-rmV" firstAttribute="leading" secondItem="yeg-4V-1NU" secondAttribute="leading" id="J9P-UQ-WIx"/>
+                        <constraint firstAttribute="trailing" secondItem="R7o-ih-rmV" secondAttribute="trailing" id="LFx-34-aZ9"/>
+                        <constraint firstItem="BUq-ID-TuP" firstAttribute="top" secondItem="R7o-ih-rmV" secondAttribute="bottom" constant="20" id="Ogj-VG-0Va"/>
+                        <constraint firstItem="lHR-Tz-Gu8" firstAttribute="top" secondItem="R7o-ih-rmV" secondAttribute="bottom" constant="20" id="STI-JL-M8c"/>
+                        <constraint firstAttribute="bottom" secondItem="BUq-ID-TuP" secondAttribute="bottom" id="Ze4-jS-SFH"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.41630196571350098" green="0.94765537977218628" blue="0.93308037519454956" alpha="0.51317349140000001" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="yeg-4V-1NU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ElD-DA-mgU" secondAttribute="leading" constant="20" id="Ju7-ha-rk3"/>
+                <constraint firstItem="yeg-4V-1NU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ElD-DA-mgU" secondAttribute="top" constant="20" id="qss-Y0-nod"/>
+                <constraint firstItem="yeg-4V-1NU" firstAttribute="centerX" secondItem="ElD-DA-mgU" secondAttribute="centerX" id="rQe-lk-IPe"/>
+                <constraint firstItem="yeg-4V-1NU" firstAttribute="centerY" secondItem="ElD-DA-mgU" secondAttribute="centerY" id="raG-Dt-zLV"/>
+            </constraints>
+            <point key="canvasLocation" x="558" y="-25"/>
+        </view>
+    </objects>
+</document>

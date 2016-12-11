@@ -12,6 +12,7 @@
 		34780F311DFD6B510015820F /* AuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34780F301DFD6B510015820F /* AuthViewController.xib */; };
 		34780F331DFD6B6D0015820F /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34780F321DFD6B6D0015820F /* AuthViewController.swift */; };
 		34780F361DFD75690015820F /* MyMGLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34780F351DFD75690015820F /* MyMGLMap.swift */; };
+		34780F381DFD83CE0015820F /* AuthLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34780F371DFD83CE0015820F /* AuthLocationManager.swift */; };
 		3488FC9E1DFD649300B85E96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3488FC9D1DFD649300B85E96 /* AppDelegate.swift */; };
 		3488FCA01DFD649300B85E96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3488FC9F1DFD649300B85E96 /* ViewController.swift */; };
 		3488FCA31DFD649300B85E96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3488FCA11DFD649300B85E96 /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 		34780F301DFD6B510015820F /* AuthViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AuthViewController.xib; sourceTree = "<group>"; };
 		34780F321DFD6B6D0015820F /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		34780F351DFD75690015820F /* MyMGLMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMGLMap.swift; sourceTree = "<group>"; };
+		34780F371DFD83CE0015820F /* AuthLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthLocationManager.swift; sourceTree = "<group>"; };
 		3488FC9A1DFD649300B85E96 /* CP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3488FC9D1DFD649300B85E96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3488FC9F1DFD649300B85E96 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				34780F321DFD6B6D0015820F /* AuthViewController.swift */,
 				34780F301DFD6B510015820F /* AuthViewController.xib */,
 				34780F2E1DFD690F0015820F /* AuthManager.swift */,
+				34780F371DFD83CE0015820F /* AuthLocationManager.swift */,
 			);
 			name = Tool;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34780F381DFD83CE0015820F /* AuthLocationManager.swift in Sources */,
 				34780F2D1DFD68B30015820F /* PopUpManager.swift in Sources */,
 				34780F361DFD75690015820F /* MyMGLMap.swift in Sources */,
 				34780F2F1DFD690F0015820F /* AuthManager.swift in Sources */,

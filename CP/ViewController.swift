@@ -9,20 +9,22 @@
 import UIKit
 import Mapbox
 
-class ViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, AuthLocationManagerProtocol {
     
-    let locationManager = CLLocationManager()
+    var authManager:AuthLocationManager!
     let point = MGLPointAnnotation()
 
     @IBOutlet var mapView: MGLMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        authManager = AuthLocationManager(viewController: self)
+        authManager.delegate = self
         
         mapView.delegate = self
         
         mapView.addAnnotation(point)
-        
-        updateUserLocation()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,25 +32,15 @@ class ViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDel
         // Dispose of any resources that can be recreated.
     }
     
-    func updateUserLocation() {
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func retUserLocation(location: CLLocation?) {
         
-        if let location = locationManager.location {
+        if let location = location {
             mapView.latitude = location.coordinate.latitude
             mapView.longitude = location.coordinate.longitude
             mapView.zoomLevel = 14
             
             point.coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         }
-        
-        locationManager.stopUpdatingLocation()
     }
     
     func mapViewRegionIsChanging(_ mapView: MGLMapView) {
