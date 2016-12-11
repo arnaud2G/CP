@@ -36,7 +36,7 @@ class SearchViewController:UIViewController {
         sbLocation.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(sbLocation)
         
-        sbLocation.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: sender.frame.origin.x).isActive = true
+        sbLocation.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: sender.frame.origin.x).isActive = true
         sbLocation.topAnchor.constraint(equalTo: self.view.topAnchor, constant: sender.frame.origin.y).isActive = true
         sbLocation.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         sbLocation.heightAnchor.constraint(equalToConstant: sender.frame.size.height).isActive = true

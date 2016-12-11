@@ -23,8 +23,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        LocationStorage.sharedInstance.printAllData()
-        
         // Gest des popUp
         popUpManager = PopUpManager(presenting: self)
         
@@ -36,14 +34,37 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
         mapView.delegate = self
         mapView.addAnnotation(point)
         
+        // On ajoute le bouton favorite
+        let btnFavorites = UIButton()
+        btnFavorites.translatesAutoresizingMaskIntoConstraints = false
+        mapView.addSubview(btnFavorites)
+        btnFavorites.backgroundColor = .lightGray
+        btnFavorites.tintColor = .white
+        btnFavorites.setImage(UIImage(named: "favorites")!.withRenderingMode(.alwaysTemplate), for: .normal)
+        btnFavorites.addTarget(self, action: #selector(self.printFavorite(send:)), for: .touchUpInside)
+        
         // On ajoute la fausse searchBar
         searchBar.delegate = self
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         mapView.addSubview(searchBar)
+        searchBar.backgroundColor = .lightGray
         
-        searchBar.leftAnchor.constraint(equalTo: mapView.leftAnchor, constant: 30).isActive = true
+        // On place les éléments
+        btnFavorites.leftAnchor.constraint(equalTo: mapView.leftAnchor, constant: 30).isActive = true
+        btnFavorites.rightAnchor.constraint(equalTo: searchBar.leftAnchor).isActive = true
+        btnFavorites.widthAnchor.constraint(equalTo: btnFavorites.heightAnchor).isActive = true
+        
+        btnFavorites.heightAnchor.constraint(equalTo: searchBar.heightAnchor).isActive = true
+        
         searchBar.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -30).isActive = true
+        
+        btnFavorites.topAnchor.constraint(equalTo: searchBar.topAnchor).isActive = true
         searchBar.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 50).isActive = true
+        
+    }
+    
+    func printFavorite(send:UIButton) {
+        LocationStorage.sharedInstance.printAllData()
     }
 
     override func didReceiveMemoryWarning() {
