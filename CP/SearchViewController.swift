@@ -10,14 +10,25 @@ import Foundation
 import UIKit
 import MapKit
 
+protocol SearchViewControllerProtocol {
+    func cancelSearch()
+    func selectLocation(location:Location)
+}
+
 class SearchViewController:UIViewController {
+    
+    var userRegion:MKCoordinateRegion?
     
     var locations = [Location]()
     
     let tvLocation = UITableView()
     
-    convenience init(sender:UISearchBar) {
+    var delegate:SearchViewControllerProtocol?
+    
+    convenience init(sender:UISearchBar, userRegion:MKCoordinateRegion? = nil) {
         self.init(nibName: nil, bundle: nil)
+        
+        self.userRegion = userRegion
         
         let sbLocation = UISearchBar()
         sbLocation.delegate = self
@@ -28,6 +39,7 @@ class SearchViewController:UIViewController {
         sbLocation.topAnchor.constraint(equalTo: self.view.topAnchor, constant: sender.frame.origin.y).isActive = true
         sbLocation.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         sbLocation.heightAnchor.constraint(equalToConstant: sender.frame.size.height).isActive = true
+        sbLocation.showsCancelButton = true
         sbLocation.becomeFirstResponder()
         
         tvLocation.translatesAutoresizingMaskIntoConstraints = false
@@ -37,13 +49,14 @@ class SearchViewController:UIViewController {
         tvLocation.dataSource = self
         
         tvLocation.register(LocationCell.self, forCellReuseIdentifier: "LocationCell")
-        tvLocation.separatorStyle = .none
         tvLocation.backgroundColor = .clear
+        tvLocation.separatorStyle = .none
+        tvLocation.estimatedRowHeight = 100
         
         tvLocation.leftAnchor.constraint(equalTo: sbLocation.leftAnchor).isActive = true
         tvLocation.rightAnchor.constraint(equalTo: sbLocation.rightAnchor).isActive = true
         tvLocation.topAnchor.constraint(equalTo: sbLocation.bottomAnchor, constant: 10).isActive = true
-        tvLocation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -1*sender.frame.origin.y).isActive = true
+        tvLocation.bottomAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -58,8 +71,11 @@ class SearchViewController:UIViewController {
 // MARK: - Ici in travaille sur l'autocompletion
 extension SearchViewController: UISearchBarDelegate {
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.delegate?.cancelSearch()
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
         search(location: searchText)
     }
     
@@ -67,6 +83,9 @@ extension SearchViewController: UISearchBarDelegate {
         
         let localSearchRequest = MKLocalSearchRequest()
         localSearchRequest.naturalLanguageQuery = location
+        if let userRegion = userRegion {
+            localSearchRequest.region = MKCoordinateRegion(center: userRegion.center, span: userRegion.span)
+        }
         
         let localSearch = MKLocalSearch(request: localSearchRequest)
         localSearch.start {
@@ -97,6 +116,11 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         cell.addLocation(location: locations[indexPath.row])
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Touch")
+        self.delegate?.selectLocation(location: locations[indexPath.row])
+    }
 }
 
 class Location {
@@ -116,7 +140,7 @@ class Location {
     static func convertSearchResponse(searchResponse:[MKMapItem]) -> [Location] {
         return searchResponse.map({
             (mapItem:MKMapItem) -> Location in
-            return Location(title: mapItem.name, adress: mapItem.placemark.title, latitude: mapItem.placemark.coordinate.latitude, longitude: mapItem.placemark.coordinate.latitude)
+            return Location(title: mapItem.name, adress: mapItem.placemark.title, latitude: mapItem.placemark.coordinate.latitude, longitude: mapItem.placemark.coordinate.longitude)
         })
     }
 }
@@ -132,29 +156,39 @@ class LocationCell: UITableViewCell {
         // On force les couleurs de fond transpoarent
         contentView.backgroundColor = .clear
         
+        let vSep = UIView()
+        
+        vSep.translatesAutoresizingMaskIntoConstraints = false
         lblName.translatesAutoresizingMaskIntoConstraints = false
         lblAdress.translatesAutoresizingMaskIntoConstraints = false
         
-        contentView.addSubview(lblName)
-        contentView.addSubview(lblAdress)
+        self.addSubview(vSep)
+        self.addSubview(lblName)
+        self.addSubview(lblAdress)
         
         // ON AJOUTE LES CONTRAINTES
-        lblName.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        lblName.topAnchor.constraint(equalTo: self.topAnchor, constant : 5).isActive = true
         lblAdress.topAnchor.constraint(equalTo: lblName.bottomAnchor).isActive = true
-        lblAdress.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        lblAdress.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant : -5).isActive = true
+        vSep.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        vSep.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         lblName.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         lblName.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         lblAdress.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         lblAdress.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        vSep.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
+        vSep.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         
         // ON AJOUTE LES ATTRIBUTES
         lblName.textColor = .red
-        lblName.font = UIFont(name: lblName.font.fontName, size: 24)
+        lblName.font = UIFont(name: lblName.font.fontName, size: 20)
         
         lblAdress.numberOfLines = 0
         lblAdress.textColor = .darkGray
-        lblName.font = UIFont(name: lblName.font.fontName, size: 18)
+        lblAdress.font = UIFont(name: lblName.font.fontName, size: 14)
+        
+        vSep.backgroundColor = .darkGray
     }
     
     required init?(coder aDecoder: NSCoder) {

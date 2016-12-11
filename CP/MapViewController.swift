@@ -8,6 +8,7 @@
 
 import UIKit
 import Mapbox
+import MapKit
 
 class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManagerProtocol, UISearchBarDelegate {
     
@@ -16,12 +17,19 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
 
     @IBOutlet var mapView: MGLMapView!
     
+    var popUpManager:PopUpManager!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Gest des popUp
+        popUpManager = PopUpManager(presenting: self)
+        
+        // Gestion de la localisation
         authManager = AuthLocationManager(viewController: self)
         authManager.delegate = self
         
+        // Gestion de la Map
         mapView.delegate = self
         mapView.addAnnotation(point)
         
@@ -33,7 +41,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
         
         searchBar.leftAnchor.constraint(equalTo: mapView.leftAnchor, constant: 30).isActive = true
         searchBar.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -30).isActive = true
-        searchBar.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 30).isActive = true
+        searchBar.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 50).isActive = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,9 +51,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         
-        let searchAdress = SearchViewController(sender:searchBar)
+        let searchAdress = SearchViewController(sender:searchBar, userRegion:MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: mapView.latitude, longitude: mapView.longitude), span: MKCoordinateSpan(latitudeDelta: 5, longitudeDelta: 5)))
+        searchAdress.delegate = self
         
-        let popUpManager = PopUpManager(presenting: self)
         popUpManager.callPopUp(presented: searchAdress, transition: UIModalTransitionStyle.crossDissolve)
         return false
     }
@@ -67,6 +75,19 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
     
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
         point.coordinate = CLLocationCoordinate2D(latitude: mapView.latitude, longitude: mapView.longitude)
+    }
+}
+
+extension MapViewController: SearchViewControllerProtocol {
+    func cancelSearch() {
+        popUpManager.dimissPopUp()
+    }
+    
+    func selectLocation(location:Location) {
+        popUpManager.dimissPopUp()
+        mapView.latitude = location.latitude
+        mapView.longitude = location.longitude
+        point.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
     }
 }
 
