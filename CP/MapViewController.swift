@@ -94,7 +94,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
     func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
         // TODO: Marqueur de recherche sur le pin
         gameTimer?.invalidate()
-        gameTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.reverseGeo), userInfo: nil, repeats: false)
+        gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.reverseGeo), userInfo: nil, repeats: false)
     }
     
     // On cherche un endroit a partir de coordonnées

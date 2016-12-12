@@ -59,6 +59,23 @@ class LocationStorage:NSManagedObjectContext {
         newEvent.adress = location.adress
         newEvent.latitude = location.latitude
         newEvent.longitude = location.longitude
+        newEvent.date = NSDate().timeIntervalSince1970
+        
+        try save()
+        try removeIfNeeded()
+    }
+    
+    func removeIfNeeded() throws {
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LocationCD")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        
+        let results = try self.fetch(fetchRequest) as! [LocationCD]
+        print(results.count)
+        if results.count > 15 {
+            let lastLocation = results.first!
+            self.delete(lastLocation)
+        }
         
         try self.save()
     }
