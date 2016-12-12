@@ -11,6 +11,7 @@ import CoreData
 
 class LocationStorage:NSManagedObjectContext {
     
+    private var maximumSave = 15
     static  let sharedInstance = LocationStorage()
     
     init() {
@@ -51,6 +52,13 @@ class LocationStorage:NSManagedObjectContext {
         }
     }
     
+    func getAllData() throws -> [LocationCD] {
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LocationCD")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        return try self.fetch(fetchRequest) as! [LocationCD]
+    }
+    
     func addLocation(location:Location) throws {
         
         let newEvent = NSEntityDescription.insertNewObject(forEntityName: "LocationCD", into: self) as! LocationCD
@@ -71,8 +79,7 @@ class LocationStorage:NSManagedObjectContext {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         
         let results = try self.fetch(fetchRequest) as! [LocationCD]
-        print(results.count)
-        if results.count > 15 {
+        if results.count > maximumSave {
             let lastLocation = results.first!
             self.delete(lastLocation)
         }

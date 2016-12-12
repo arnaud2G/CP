@@ -61,7 +61,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
     }
     
     func printFavorite(send:UIButton) {
-        LocationStorage.sharedInstance.printAllData()
+        
+        do {
+            let locations = try LocationStorage.sharedInstance.getAllData()
+            let searchAdress = SearchViewController(sender:searchBar, locations: Location.convertLocationCD(locations: locations))
+            searchAdress.delegate = self
+            popUpManager.callPopUp(presented: searchAdress, transition: UIModalTransitionStyle.crossDissolve)
+        } catch {
+            // Gestion de l'err ici
+        }
     }
 
     override func didReceiveMemoryWarning() {
