@@ -10,12 +10,14 @@ import UIKit
 import Mapbox
 import MapKit
 
-class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManagerProtocol, UISearchBarDelegate {
+class MapViewController: UIViewController, AuthLocationManagerProtocol, UISearchBarDelegate, PickedMapViewProtocol {
     
     var authManager:AuthLocationManager!
     let point = MGLPointAnnotation()
-
-    @IBOutlet var mapView: MGLMapView!
+    
+    @IBOutlet var vMap: UIView!
+    let mapView = PickedMapView()
+    
     let searchBar = UISearchBar()
     
     var popUpManager:PopUpManager!
@@ -32,7 +34,16 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
         
         // Gestion de la Map
         mapView.delegate = self
-        mapView.addAnnotation(point)
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        vMap.addSubview(mapView)
+        
+        mapView.leftAnchor.constraint(equalTo: vMap.leftAnchor).isActive = true
+        mapView.rightAnchor.constraint(equalTo: vMap.rightAnchor).isActive = true
+        mapView.topAnchor.constraint(equalTo: vMap.topAnchor).isActive = true
+        mapView.bottomAnchor.constraint(equalTo: vMap.bottomAnchor).isActive = true
+        
+        //mapView.delegate = self
+        //mapView.addAnnotation(point)
         
         // On ajoute la fausse searchBar
         searchBar.delegate = self
@@ -82,33 +93,30 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
         if let location = location {
             mapView.latitude = location.coordinate.latitude
             mapView.longitude = location.coordinate.longitude
-            mapView.zoomLevel = 14
+            //mapView.zoomLevel = 14
             
             point.coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         }
     }
     
-    // Gestion de la map
-    func mapViewRegionIsChanging(_ mapView: MGLMapView) {
-        point.coordinate = CLLocationCoordinate2D(latitude: mapView.latitude, longitude: mapView.longitude)
+    func mapLoadded(latitude: Double, longitude: Double) {
+        mapView.addCenterPin(latitude: latitude, longitude: longitude)
     }
     
-    func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
-        point.coordinate = CLLocationCoordinate2D(latitude: mapView.latitude, longitude: mapView.longitude)
-    }
-    
-    // On ajoute un timer pour éviter les recherches multiples
     var gameTimer:Timer?
-    func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
-        // TODO: Marqueur de recherche sur le pin
+    func mapRendering(latitude: Double, longitude: Double) {
         gameTimer?.invalidate()
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.reverseGeo), userInfo: nil, repeats: false)
+    }
+    
+    func regionChanging(latitude: Double, longitude: Double) {
+        mapView.addCenterPin(latitude: latitude, longitude: longitude)
     }
     
     // On cherche un endroit a partir de coordonnées
     func reverseGeo() {
         
-        let location = CLLocation(latitude: mapView.latitude, longitude: mapView.longitude)
+        let location = CLLocation(latitude: mapView.latitude!, longitude: mapView.longitude!)
         
         let geoCoder = CLGeocoder()
         geoCoder.reverseGeocodeLocation(location, completionHandler: {
@@ -155,7 +163,7 @@ extension MapViewController: SearchViewControllerProtocol {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         
-        let searchAdress = SearchViewController(sender:searchBar, userRegion:MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: mapView.latitude, longitude: mapView.longitude), span: MKCoordinateSpan(latitudeDelta: 5, longitudeDelta: 5)))
+        let searchAdress = SearchViewController(sender:searchBar, userRegion:MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: mapView.latitude!, longitude: mapView.longitude!), span: MKCoordinateSpan(latitudeDelta: 5, longitudeDelta: 5)))
         searchAdress.delegate = self
         
         popUpManager.callPopUp(presented: searchAdress, transition: UIModalTransitionStyle.crossDissolve)

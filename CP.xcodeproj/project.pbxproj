@@ -22,6 +22,7 @@
 		A52272051DFDE202000DB511 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52272041DFDE202000DB511 /* CoreDataManager.swift */; };
 		A52272071DFDE2EC000DB511 /* LocationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52272061DFDE2EC000DB511 /* LocationStorage.swift */; };
 		A522720A1DFDE37F000DB511 /* CP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A52272081DFDE37F000DB511 /* CP.xcdatamodeld */; };
+		A5307A331DFEA7A800EFF5C6 /* PickedMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5307A321DFEA7A800EFF5C6 /* PickedMapView.swift */; };
 		A56A58AD1DFDAB3100E9125D /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A58AC1DFDAB3100E9125D /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		A52272041DFDE202000DB511 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		A52272061DFDE2EC000DB511 /* LocationStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationStorage.swift; sourceTree = "<group>"; };
 		A52272091DFDE37F000DB511 /* CP.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CP.xcdatamodel; sourceTree = "<group>"; };
+		A5307A321DFEA7A800EFF5C6 /* PickedMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickedMapView.swift; sourceTree = "<group>"; };
 		A56A58AC1DFDAB3100E9125D /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,6 +105,7 @@
 			children = (
 				3488FC9D1DFD649300B85E96 /* AppDelegate.swift */,
 				3488FC9F1DFD649300B85E96 /* MapViewController.swift */,
+				A5307A321DFEA7A800EFF5C6 /* PickedMapView.swift */,
 				A56A58AC1DFDAB3100E9125D /* SearchViewController.swift */,
 				3488FCA11DFD649300B85E96 /* Main.storyboard */,
 				3488FCA41DFD649300B85E96 /* Assets.xcassets */,
@@ -212,6 +215,7 @@
 				34780F381DFD83CE0015820F /* AuthLocationManager.swift in Sources */,
 				A56A58AD1DFDAB3100E9125D /* SearchViewController.swift in Sources */,
 				34780F2D1DFD68B30015820F /* PopUpManager.swift in Sources */,
+				A5307A331DFEA7A800EFF5C6 /* PickedMapView.swift in Sources */,
 				A52272071DFDE2EC000DB511 /* LocationStorage.swift in Sources */,
 				A522720A1DFDE37F000DB511 /* CP.xcdatamodeld in Sources */,
 				34780F2F1DFD690F0015820F /* AuthManager.swift in Sources */,
