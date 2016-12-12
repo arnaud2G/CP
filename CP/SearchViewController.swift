@@ -25,7 +25,7 @@ class SearchViewController:UIViewController {
     
     var delegate:SearchViewControllerProtocol?
     
-    convenience init(sender:UISearchBar, locations:[Location]) {
+    convenience init(sender:UIView, locations:[Location]) {
         self.init(nibName: nil, bundle: nil)
         
         self.locations = locations
@@ -59,7 +59,7 @@ class SearchViewController:UIViewController {
         tvLocation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -1*sender.frame.origin.y).isActive = true
     }
     
-    convenience init(sender:UISearchBar, userRegion:MKCoordinateRegion? = nil) {
+    convenience init(sender:UIView, userRegion:MKCoordinateRegion? = nil) {
         self.init(nibName: nil, bundle: nil)
         
         self.userRegion = userRegion
