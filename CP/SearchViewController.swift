@@ -25,6 +25,40 @@ class SearchViewController:UIViewController {
     
     var delegate:SearchViewControllerProtocol?
     
+    convenience init(sender:UISearchBar, locations:[Location]) {
+        self.init(nibName: nil, bundle: nil)
+        
+        self.locations = locations
+        
+        // Ajout du titre
+        let vTitle = UILabel()
+        vTitle.text = "Favoris"
+        vTitle.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(vTitle)
+        
+        vTitle.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: sender.frame.origin.x).isActive = true
+        vTitle.topAnchor.constraint(equalTo: self.view.topAnchor, constant: sender.frame.origin.y).isActive = true
+        vTitle.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        vTitle.heightAnchor.constraint(equalToConstant: sender.frame.size.height).isActive = true
+        
+        // Ajout de la table d'affichage des résultats
+        tvLocation.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(tvLocation)
+        
+        tvLocation.delegate = self
+        tvLocation.dataSource = self
+        
+        tvLocation.register(LocationCell.self, forCellReuseIdentifier: "LocationCell")
+        tvLocation.backgroundColor = .clear
+        tvLocation.separatorStyle = .none
+        tvLocation.estimatedRowHeight = 100
+        
+        tvLocation.leftAnchor.constraint(equalTo: vTitle.leftAnchor).isActive = true
+        tvLocation.rightAnchor.constraint(equalTo: vTitle.rightAnchor).isActive = true
+        tvLocation.topAnchor.constraint(equalTo: vTitle.bottomAnchor, constant: 10).isActive = true
+        tvLocation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -1*sender.frame.origin.y).isActive = true
+    }
+    
     convenience init(sender:UISearchBar, userRegion:MKCoordinateRegion? = nil) {
         self.init(nibName: nil, bundle: nil)
         
@@ -36,6 +70,7 @@ class SearchViewController:UIViewController {
         sbLocation.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(sbLocation)
         
+        // Ici c'est moche ;)
         sbLocation.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: sender.frame.origin.x).isActive = true
         sbLocation.topAnchor.constraint(equalTo: self.view.topAnchor, constant: sender.frame.origin.y).isActive = true
         sbLocation.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
@@ -144,6 +179,13 @@ class Location {
         return searchResponse.map({
             (mapItem:MKMapItem) -> Location in
             return Location(title: mapItem.name, adress: mapItem.placemark.title, latitude: mapItem.placemark.coordinate.latitude, longitude: mapItem.placemark.coordinate.longitude)
+        })
+    }
+    
+    static func convertLocationCD(locations:[LocationCD]) -> [Location] {
+        return locations.map({
+            (locationCD:LocationCD) -> Location in
+            return Location(title: locationCD.title, adress: locationCD.adress, latitude: locationCD.latitude, longitude: locationCD.longitude)
         })
     }
 }
