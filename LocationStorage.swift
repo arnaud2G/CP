@@ -86,4 +86,13 @@ class LocationStorage:NSManagedObjectContext {
         
         try self.save()
     }
+    
+    func countData() throws -> Int {
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LocationCD")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        
+        let results = try self.fetch(fetchRequest) as! [LocationCD]
+        return results.count
+    }
 }

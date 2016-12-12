@@ -11,6 +11,7 @@ import UIKit
 import Mapbox
 import MapKit
 
+// Ici on ajoute les types disponibles
 enum MapType {
     case MapBox
 }
@@ -39,6 +40,7 @@ class MapViewManager:NSObject, PickedMapViewProtocol {
     init(type:MapType, includedIn:UIView) {
         super.init()
         
+        // En fonction du type on va chercher une map différente
         switch type {
         case .MapBox:
             vMap = PickedMapBox(pickedMapViewProtocol: self)
@@ -77,10 +79,12 @@ class MapViewManager:NSObject, PickedMapViewProtocol {
         searchBar.topAnchor.constraint(equalTo: vMap.topAnchor, constant: 50).isActive = true
     }
     
+    // On delegue l'affichage au view controller
     func printFavorite(send:UIButton) {
         self.delegate?.searchingFavorites(sender: searchBar)
     }
     
+    // Le timer évite des recherche multiple
     var gameTimer:Timer?
     func addStartingPoint(latitude:Double, longitude:Double) {
         self.latitude = latitude
@@ -97,7 +101,7 @@ class MapViewManager:NSObject, PickedMapViewProtocol {
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.reverseGeo), userInfo: nil, repeats: false)
     }
      
-    // On cherche un endroit a partir de coordonnées
+    // On cherche un endroit a partir de coordonnées // CLGeocoder est pas terrible ...
     func reverseGeo() {
         
         let location = CLLocation(latitude: self.latitude!, longitude: self.longitude!)

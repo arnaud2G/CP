@@ -25,6 +25,10 @@ class SearchViewController:UIViewController {
     
     var delegate:SearchViewControllerProtocol?
     
+    convenience init() {
+        self.init(nibName: nil, bundle: nil)
+    }
+    
     convenience init(sender:UIView, locations:[Location]) {
         self.init(nibName: nil, bundle: nil)
         
@@ -116,7 +120,7 @@ extension SearchViewController: UISearchBarDelegate {
         search(location: searchText)
     }
     
-    func search(location:String) {
+    func search(location:String, completion: ((_ locations:[Location]) -> Void)? = nil) {
         
         let localSearchRequest = MKLocalSearchRequest()
         localSearchRequest.naturalLanguageQuery = location
@@ -127,6 +131,13 @@ extension SearchViewController: UISearchBarDelegate {
         let localSearch = MKLocalSearch(request: localSearchRequest)
         localSearch.start {
             (localSearchResponse, error) -> Void in
+            
+            if let completion = completion, let localSearchResponse = localSearchResponse {
+                let locations = Location.convertSearchResponse(searchResponse:localSearchResponse.mapItems)
+                completion(locations)
+                return
+            }
+            
             
             if let localSearchResponse = localSearchResponse {
                 self.locations = Location.convertSearchResponse(searchResponse:localSearchResponse.mapItems)

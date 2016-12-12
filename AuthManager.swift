@@ -50,12 +50,10 @@ class AuthManager:NSObject, AuthViewControllerProtocol {
     
     func acceptAuth() {
         popUpManager!.dimissPopUp()
-        print("Accepted")
     }
     
     func rejectAuth() {
         popUpManager!.dimissPopUp()
-        print("Rejected")
     }
 }
 
