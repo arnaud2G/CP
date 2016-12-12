@@ -79,8 +79,12 @@ extension MapViewController: SearchViewControllerProtocol {
         popUpManager.dimissPopUp()
     }
     
-    func selectLocation(location:Location) {
-        mapViewManager.addFavoritePoint(location: location)
+    func selectLocation(location:Location, isFavorite:Bool) {
+        if isFavorite {
+            mapViewManager.addFavoritePoint(location: location)
+        } else {
+            mapViewManager.addStartingPoint(latitude: location.latitude, longitude: location.longitude)
+        }
         popUpManager.dimissPopUp()
     }
 }

@@ -12,7 +12,7 @@ import MapKit
 
 protocol SearchViewControllerProtocol {
     func cancelSearch()
-    func selectLocation(location:Location)
+    func selectLocation(location:Location, isFavorite:Bool)
 }
 
 class SearchViewController:UIViewController {
@@ -25,10 +25,14 @@ class SearchViewController:UIViewController {
     
     var delegate:SearchViewControllerProtocol?
     
+    var isFavorite = false
+    
     convenience init(sender:UIView, locations:[Location]) {
         self.init(nibName: nil, bundle: nil)
         
         self.locations = locations
+        
+        isFavorite = true
         
         // Ajout du titre
         let vTitle = UILabel()
@@ -157,8 +161,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Touch")
-        self.delegate?.selectLocation(location: locations[indexPath.row])
+        self.delegate?.selectLocation(location: locations[indexPath.row], isFavorite: isFavorite)
     }
 }
 
