@@ -34,33 +34,30 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
         mapView.delegate = self
         mapView.addAnnotation(point)
         
+        // On ajoute la fausse searchBar
+        searchBar.delegate = self
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        mapView.addSubview(searchBar)
+        searchBar.barTintColor = .lightGray
+        
         // On ajoute le bouton favorite
         let btnFavorites = UIButton()
         btnFavorites.translatesAutoresizingMaskIntoConstraints = false
         mapView.addSubview(btnFavorites)
         btnFavorites.backgroundColor = .lightGray
         btnFavorites.tintColor = .white
+        btnFavorites.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         btnFavorites.setImage(UIImage(named: "favorites")!.withRenderingMode(.alwaysTemplate), for: .normal)
         btnFavorites.addTarget(self, action: #selector(self.printFavorite(send:)), for: .touchUpInside)
-        
-        // On ajoute la fausse searchBar
-        searchBar.delegate = self
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        mapView.addSubview(searchBar)
-        searchBar.backgroundColor = .lightGray
-        
-        // On place les éléments
-        btnFavorites.leftAnchor.constraint(equalTo: mapView.leftAnchor, constant: 30).isActive = true
-        btnFavorites.rightAnchor.constraint(equalTo: searchBar.leftAnchor).isActive = true
         btnFavorites.widthAnchor.constraint(equalTo: btnFavorites.heightAnchor).isActive = true
-        
         btnFavorites.heightAnchor.constraint(equalTo: searchBar.heightAnchor).isActive = true
         
-        searchBar.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -30).isActive = true
-        
+        // On place les éléments
+        searchBar.leftAnchor.constraint(equalTo: mapView.leftAnchor, constant: 30).isActive = true
+        searchBar.rightAnchor.constraint(equalTo: btnFavorites.leftAnchor).isActive = true
+        btnFavorites.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -30).isActive = true
         btnFavorites.topAnchor.constraint(equalTo: searchBar.topAnchor).isActive = true
         searchBar.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 50).isActive = true
-        
     }
     
     func printFavorite(send:UIButton) {
@@ -83,11 +80,27 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
         }
     }
     
+    // Gestion de la map
     func mapViewRegionIsChanging(_ mapView: MGLMapView) {
         point.coordinate = CLLocationCoordinate2D(latitude: mapView.latitude, longitude: mapView.longitude)
     }
     
-    func reverseGeo(location:CLLocation) {
+    func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
+        point.coordinate = CLLocationCoordinate2D(latitude: mapView.latitude, longitude: mapView.longitude)
+    }
+    
+    // On ajoute un timer pour éviter les recherches multiples
+    var gameTimer:Timer?
+    func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
+        // TODO: Marqueur de recherche sur le pin
+        gameTimer?.invalidate()
+        gameTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.reverseGeo), userInfo: nil, repeats: false)
+    }
+    
+    // On cherche un endroit a partir de coordonnées
+    func reverseGeo() {
+        
+        let location = CLLocation(latitude: mapView.latitude, longitude: mapView.longitude)
         
         let geoCoder = CLGeocoder()
         geoCoder.reverseGeocodeLocation(location, completionHandler: {
@@ -127,16 +140,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, AuthLocationManag
             }
         })
     }
-    
-    func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
-        point.coordinate = CLLocationCoordinate2D(latitude: mapView.latitude, longitude: mapView.longitude)
-    }
-    
-    func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
-        reverseGeo(location: CLLocation(latitude: mapView.latitude, longitude: mapView.longitude))
-    }
 }
 
+// Gestion de la bar de recherche
 extension MapViewController: SearchViewControllerProtocol {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
