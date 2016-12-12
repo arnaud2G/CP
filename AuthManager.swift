@@ -45,7 +45,7 @@ class AuthManager:NSObject, AuthViewControllerProtocol {
         
         let authViewController = AuthViewController(authType: authType)
         authViewController.delegate = self
-        popUpManager.callPopUp(presented: authViewController)
+        popUpManager.callPopUp(presented: authViewController, transition: UIModalTransitionStyle.crossDissolve)
     }
     
     func acceptAuth() {

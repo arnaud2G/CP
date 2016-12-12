@@ -34,7 +34,6 @@ class AuthViewController: UIViewController {
     convenience init(authType:AuthType) {
         
         self.init(nibName: "AuthViewController", bundle: nil)
-        
         self.authType = authType
     }
     

@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yeg-4V-1NU">
-                    <rect key="frame" x="93" y="298" width="188" height="71"/>
+                    <rect key="frame" x="93.5" y="298" width="188" height="71"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon message d'auth" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7o-ih-rmV">
                             <rect key="frame" x="0.0" y="0.0" width="188" height="21"/>
@@ -61,7 +61,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.41630196571350098" green="0.94765537977218628" blue="0.93308037519454956" alpha="0.51317349140000001" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.1803921568627451" green="0.29803921568627451" blue="0.50980392156862742" alpha="0.9021297089041096" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="yeg-4V-1NU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ElD-DA-mgU" secondAttribute="leading" constant="30" id="Ju7-ha-rk3"/>
                 <constraint firstItem="yeg-4V-1NU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ElD-DA-mgU" secondAttribute="top" constant="20" id="qss-Y0-nod"/>

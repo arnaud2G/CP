@@ -55,7 +55,7 @@ class PopUpManager:NSObject {
         
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 2.0, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                self.bView.backgroundColor = .darkGray
+                self.bView.backgroundColor = UIColor(red:(46.0/256.0), green:(76.0/256.0), blue:(130.0/256.0), alpha:0.9)
             }, completion: nil
             )
             

@@ -22,7 +22,7 @@ protocol PickedMapViewProtocol {
 
 // Protocol pour communiquer avec le ViewController
 protocol MapViewManagerProtocol {
-    func searchingLocation(sender:UIView, latitude:Double, longitude:Double)
+    func searchingLocation(sender:UIView, latitude:Double?, longitude:Double?)
     func searchingFavorites(sender:UIView)
 }
 
@@ -32,6 +32,7 @@ class MapViewManager:NSObject, PickedMapViewProtocol {
     
     var vMap:UIView!
     let searchBar = UISearchBar()
+    let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
     var latitude:Double?
     var longitude:Double?
@@ -43,6 +44,9 @@ class MapViewManager:NSObject, PickedMapViewProtocol {
         case .MapBox:
             vMap = PickedMapBox(pickedMapViewProtocol: self)
         }
+        
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.hidesWhenStopped = true
         
         vMap.translatesAutoresizingMaskIntoConstraints = false
         includedIn.addSubview(vMap)
@@ -56,6 +60,10 @@ class MapViewManager:NSObject, PickedMapViewProtocol {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         vMap.addSubview(searchBar)
         searchBar.barTintColor = .lightGray
+        searchBar.addSubview(indicator)
+        
+        searchBar.rightAnchor.constraint(equalTo: indicator.rightAnchor, constant: 20).isActive = true
+        searchBar.centerYAnchor.constraint(equalTo: indicator.centerYAnchor).isActive = true
         
         // On ajoute le bouton favorite
         let btnFavorites = UIButton()
@@ -83,18 +91,29 @@ class MapViewManager:NSObject, PickedMapViewProtocol {
     
     var gameTimer:Timer?
     func addStartingPoint(latitude:Double, longitude:Double) {
+        indicator.startAnimating()
+        self.searchBar.text = String()
         self.latitude = latitude
         self.longitude = longitude
         (vMap as! UsingMapProtocol).addPoint(latitude: latitude, longitude: longitude)
         gameTimer?.invalidate()
-        gameTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.reverseGeo), userInfo: nil, repeats: false)
+        gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.reverseGeo), userInfo: nil, repeats: false)
+    }
+    
+    func addFavoritePoint(location:Location) {
+        self.searchBar.text = location.title!
+        self.latitude = location.latitude
+        self.longitude = location.longitude
+        (vMap as! UsingMapProtocol).addPoint(latitude: location.latitude, longitude: location.longitude)
     }
     
     internal func regionChanging(latitude: Double, longitude: Double) {
+        indicator.startAnimating()
+        self.searchBar.text = String()
         self.latitude = latitude
         self.longitude = longitude
         gameTimer?.invalidate()
-        gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.reverseGeo), userInfo: nil, repeats: false)
+        gameTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.reverseGeo), userInfo: nil, repeats: false)
     }
      
     // On cherche un endroit a partir de coordonnées
@@ -137,6 +156,7 @@ class MapViewManager:NSObject, PickedMapViewProtocol {
                 }
                 
                 self.searchBar.text = reverseGeo
+                self.indicator.stopAnimating()
             }
         })
     }
@@ -147,7 +167,7 @@ class MapViewManager:NSObject, PickedMapViewProtocol {
 extension MapViewManager: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        self.delegate?.searchingLocation(sender:searchBar, latitude: self.latitude!, longitude: self.longitude!)
+        self.delegate?.searchingLocation(sender:searchBar, latitude: self.latitude, longitude: self.longitude)
         return false
     }
 }

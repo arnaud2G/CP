@@ -35,6 +35,9 @@ class SearchViewController:UIViewController {
         vTitle.text = "Favoris"
         vTitle.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(vTitle)
+        vTitle.backgroundColor = .lightGray
+        vTitle.textColor = .white
+        vTitle.textAlignment = .center
         
         vTitle.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: sender.frame.origin.x).isActive = true
         vTitle.topAnchor.constraint(equalTo: self.view.topAnchor, constant: sender.frame.origin.y).isActive = true
@@ -70,7 +73,6 @@ class SearchViewController:UIViewController {
         sbLocation.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(sbLocation)
         
-        // Ici c'est moche ;)
         sbLocation.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: sender.frame.origin.x).isActive = true
         sbLocation.topAnchor.constraint(equalTo: self.view.topAnchor, constant: sender.frame.origin.y).isActive = true
         sbLocation.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
@@ -160,36 +162,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-
-class Location {
-    
-    let title:String?
-    let adress:String?
-    let latitude:Double
-    let longitude:Double
-    
-    init(title:String?, adress:String?, latitude:Double, longitude:Double) {
-        self.title = title
-        self.adress = adress
-        self.latitude = latitude
-        self.longitude = longitude
-    }
-    
-    static func convertSearchResponse(searchResponse:[MKMapItem]) -> [Location] {
-        return searchResponse.map({
-            (mapItem:MKMapItem) -> Location in
-            return Location(title: mapItem.name, adress: mapItem.placemark.title, latitude: mapItem.placemark.coordinate.latitude, longitude: mapItem.placemark.coordinate.longitude)
-        })
-    }
-    
-    static func convertLocationCD(locations:[LocationCD]) -> [Location] {
-        return locations.map({
-            (locationCD:LocationCD) -> Location in
-            return Location(title: locationCD.title, adress: locationCD.adress, latitude: locationCD.latitude, longitude: locationCD.longitude)
-        })
-    }
-}
-
+// MARK: - Affichage des lieux en liste
 class LocationCell: UITableViewCell {
     
     let lblName = UILabel()
@@ -229,9 +202,9 @@ class LocationCell: UITableViewCell {
         vPuce.backgroundColor = .darkGray
         
         lblName.leftAnchor.constraint(equalTo: vPuce.rightAnchor, constant: 10).isActive = true
-        lblName.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        lblName.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         lblAdress.leftAnchor.constraint(equalTo: vPuce.rightAnchor, constant: 10).isActive = true
-        lblAdress.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        lblAdress.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         vSep.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
         vSep.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         
@@ -254,6 +227,36 @@ class LocationCell: UITableViewCell {
         
         lblName.text = location.title
         lblAdress.text = location.adress
+    }
+}
+
+// MARK: - Class locale pour stocker les lieux
+class Location {
+    
+    let title:String?
+    let adress:String?
+    let latitude:Double
+    let longitude:Double
+    
+    init(title:String?, adress:String?, latitude:Double, longitude:Double) {
+        self.title = title
+        self.adress = adress
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+    
+    static func convertSearchResponse(searchResponse:[MKMapItem]) -> [Location] {
+        return searchResponse.map({
+            (mapItem:MKMapItem) -> Location in
+            return Location(title: mapItem.name, adress: mapItem.placemark.title, latitude: mapItem.placemark.coordinate.latitude, longitude: mapItem.placemark.coordinate.longitude)
+        })
+    }
+    
+    static func convertLocationCD(locations:[LocationCD]) -> [Location] {
+        return locations.map({
+            (locationCD:LocationCD) -> Location in
+            return Location(title: locationCD.title, adress: locationCD.adress, latitude: locationCD.latitude, longitude: locationCD.longitude)
+        })
     }
 }
 

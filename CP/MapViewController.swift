@@ -39,10 +39,14 @@ class MapViewController: UIViewController, AuthLocationManagerProtocol, MapViewM
         // Dispose of any resources that can be recreated.
     }
     
-    func searchingLocation(sender:UIView, latitude: Double, longitude: Double) {
+    func searchingLocation(sender:UIView, latitude: Double?, longitude: Double?) {
         
+        var region:MKCoordinateRegion?
+        if let latitude = latitude, let longitude = longitude {
+            region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 5, longitudeDelta: 5))
+        }
         
-        let searchAdress = SearchViewController(sender:sender, userRegion:MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 5, longitudeDelta: 5)))
+        let searchAdress = SearchViewController(sender:sender, userRegion:region)
         searchAdress.delegate = self
         popUpManager.callPopUp(presented: searchAdress, transition: UIModalTransitionStyle.crossDissolve)
     }
@@ -51,6 +55,7 @@ class MapViewController: UIViewController, AuthLocationManagerProtocol, MapViewM
         
         do {
             let locations = try LocationStorage.sharedInstance.getAllData()
+            if locations.count == 0 {return}
             let searchAdress = SearchViewController(sender:sender, locations: Location.convertLocationCD(locations: locations))
             searchAdress.delegate = self
             popUpManager.callPopUp(presented: searchAdress, transition: UIModalTransitionStyle.crossDissolve)
@@ -75,7 +80,7 @@ extension MapViewController: SearchViewControllerProtocol {
     }
     
     func selectLocation(location:Location) {
-        mapViewManager.addStartingPoint(latitude: location.latitude, longitude: location.longitude)
+        mapViewManager.addFavoritePoint(location: location)
         popUpManager.dimissPopUp()
     }
 }
